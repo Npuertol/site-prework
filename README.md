@@ -40,8 +40,8 @@ The following **additional** features are implemented:
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
-![](https://gifyu.com/image/ZO4F)
-![](https://gifyu.com/image/ZO4a)
+![](https://s4.gifyu.com/images/sitepreworklosegame.gif)
+![](https://s4.gifyu.com/images/sitepreworkwingame.gif)
 
 ## Reflection Questions
 1. If you used any outside resources to help complete your submission (websites, books, people, etc) list them here. 
