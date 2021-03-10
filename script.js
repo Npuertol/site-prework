@@ -1,7 +1,7 @@
 // global constants
-const clueHoldTime = 250; //how long to hold each clue's light/sound
-const cluePauseTime = 250; //how long to pause in between clues
-const nextClueWaitTime = 250; //how long to wait before starting playback of the clue sequence
+const cluePauseTime = 100; //how long to pause in between clues
+const nextClueWaitTime = 1000; //how long to wait before starting playback of the clue sequence
+const clueHoldTime = 100; //how long to hold each clue's light/sound
 
 //Global Variables
 /* 
@@ -9,12 +9,21 @@ pattern- keeps track of secret button press pattern using integers 1-4
 progress- used with pattern array to track player progress
 gamepPlaying- boolean value to determine whether game is active
 */
-var pattern = [2, 2, 4, 3, 2, 1, 2, 4];
+
+var pattern = [];
 var progress = 0; 
 var gamePlaying = false;
 var tonePlaying = false;
-var volume = 0.5;  //must be between 0.0 and 1.0
+var volume = 0.3;  //must be between 0.0 and 1.0
 var guessCounter = 0;
+
+function generatePattern(){
+  pattern = [0, 0, 0, 0, 0, 0, 0, 0];
+  for(let i = 0; i < 8; i++){
+    pattern[i] += ((Math.floor(Math.random() * 6)) + 1); // adds 8 random integer values from 1-6 to pattern array
+  }
+  console.log("The sequence is: " + pattern.toString())
+}
 
 function startGame(){
     //initialize game variables
@@ -23,6 +32,8 @@ function startGame(){
     // swap the Start and Stop buttons
   document.getElementById("startBtn").classList.add("hidden");
   document.getElementById("stopBtn").classList.remove("hidden");
+  //added generatePattern to make random pattern
+  generatePattern();
   //added playClueSequence() to start game + first clue
   playClueSequence();
 }
@@ -45,9 +56,11 @@ function clearButton(btn){
 
 function playSingleClue(btn){
   if(gamePlaying){
+    for(let i=0;i<=progress;i++){
     lightButton(btn);
     playTone(btn,clueHoldTime);
     setTimeout(clearButton,clueHoldTime,btn);
+    }
   }
 }
 
@@ -57,7 +70,7 @@ function playClueSequence(){
   for(let i=0;i<=progress;i++){ // for each clue that is revealed so far
     console.log("play single clue: " + pattern[i] + " in " + delay + "ms")
     setTimeout(playSingleClue,delay,pattern[i]) // set a timeout to play that clue
-    delay += clueHoldTime 
+    delay += clueHoldTime; 
     delay += cluePauseTime;
   }
 }
